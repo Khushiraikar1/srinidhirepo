@@ -1,0 +1,106 @@
+#include<stdio.h>
+void main()
+{
+  int a[10][10],transpose[10][10],m,n,i,j,sumrow,sumcolumn,sum=0,x=0,sparse_count;
+  int flag=0;
+  printf("enter value of m and n\n");
+  scanf("%d%d",&m,&n);
+  printf("enter the values\n");
+  for(i=0;i<m;i++)  //to read rows
+   for(j=0;j<n;j++) //to read columns
+      scanf("%d",&a[i][j]);
+  printf("the matrix is \n");
+  for(i=0;i<m;i++)
+  {
+    for(j=0;j<n;j++)
+      printf("%d\t",a[i][j]);
+      printf("\n");
+  }
+  /* check for identity matrix*/
+  for(i=0;i<m;i++)
+  {
+   for(j=0;j<n;j++)
+   {
+     if(i==j&& a[i][j]!=1)
+     {
+     flag=-1;
+     break;
+     }
+
+
+   else if(i!=j && a[i][j]!=0)
+   {
+    flag=-1;
+    break;
+   }
+   }
+  }
+  if(flag==0)
+    printf("it is a identity matrix\n");
+  else
+    printf("it is not an identity matrix");
+    /*transpose of a matrix*/
+  for(i=0;i<m;++i)
+  {for(j=0;j<n;++j)
+      transpose[j][i]= a[i][j];}
+   printf("\n transpose of a matrix is\n ");
+   for(i=0;i<m;++i)
+   for(j=0;j<n;++j){
+    printf("%d  ",transpose[i][j]);
+    if(j==m-1)
+    printf("\n");
+    }
+    /*row wise sum*/
+    for(i=0;i<m;++i)
+    {
+        sumrow=0;
+        for(j=0;j<n;++j)
+        {
+            sumrow += a[i][j];
+        }
+        printf("sum of row %d = %d\n",i+1,sumrow);
+    }
+    printf("\n");
+
+    /*column wise sum*/
+    for(i=0;i<n;++i)
+    {
+        sumcolumn=0;
+        for(j=0;j<m;++j)
+        {
+            sumcolumn += a[j][i];
+        }printf("sum of column %d =%d\n",i+1,sumcolumn);
+    }
+    /* sum of principal diagonal elements*/
+    for(i=0;i<m;++i)
+    {
+        for(j=0;j<n;++j)
+          if(i==j)
+            sum=sum +a[i][j];
+    }
+    printf("\n sum of principal diagonal elements is %d\n",sum);
+    /*sum of secondary diagonal elements*/
+    for(i=0;i<m;++i)
+        x=x+a[i][m-i-1];
+    printf("\n sum of secondary diagonal elements is %d\n",x);
+    /* sparse matrix*/
+    for(i=0;i<m;++i)
+    {
+        for(j=0;j<n;++j)
+        {
+            if(a[i][j]==0)
+            {
+                ++sparse_count;
+            }
+        }
+    }
+    if(sparse_count>((m*n)/2))
+    {
+        printf("given matrix is sparse\n");
+    }
+    else
+        printf("given matrix is not sparse\n");
+    printf("there are %d number of zero's",sparse_count);
+}
+
+
